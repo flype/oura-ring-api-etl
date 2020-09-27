@@ -10,6 +10,8 @@ import rauth
 import requests
 
 
+PERSONAL_ACCESS_TOKEN = os.environ.get('PERSONAL_ACCESS_TOKEN')
+
 USER_EMAIL = os.environ.get('USER_EMAIL')
 USER_PASSWORD = os.environ.get('USER_PASSWORD')
 
@@ -83,7 +85,10 @@ def get_yesterday_datestamp():
 
 def load_daily_data(date=get_yesterday_datestamp()):
     """Scrape all daily stats for sleep, activity, readiness."""
-    token = get_oauth2_token(email=USER_EMAIL, password=USER_PASSWORD)
+    if PERSONAL_ACCESS_TOKEN is None:
+        token = get_oauth2_token(email=USER_EMAIL, password=USER_PASSWORD)
+    else:
+        token = PERSONAL_ACCESS_TOKEN
 
     def get(endpoint):
         """A wrapper around GET requests to the API."""
