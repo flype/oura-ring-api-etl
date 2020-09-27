@@ -1,4 +1,4 @@
-export PERSONAL_ACCESS_TOKEN='';
+#export PERSONAL_ACCESS_TOKEN='';
 export USER_EMAIL='xxx@xxx.com';
 export USER_PASSWORD='xxxx';
 export OURA_CLIENT_ID='xxxxxxxx';
