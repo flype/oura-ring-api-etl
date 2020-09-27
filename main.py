@@ -6,7 +6,7 @@ Loads yesterday's personal Oura Ring data, and loads it into a data warehouse.
 
 import os
 
-import psycopg2
+from google.cloud import bigquery
 
 from extract import load_daily_data
 from transform import transform_sleep_data
@@ -23,21 +23,14 @@ def main():
     activity_data = transform_activity_data(data['activity'])
     readiness_data = transform_readiness_data(data['readiness'])
 
-    connection = psycopg2.connect(
-        user=os.environ.get('DB_USER'),
-        password=os.environ.get('DB_PASSWORD'),
-        host=os.environ.get('DB_HOST'),
-        port=os.environ.get('DB_PORT'),
-        database=os.environ.get('DB_DATABASE'))
+    client = bigquery.Client()
 
     for row in sleep_data:
-        upload_row('oura_sleep', row, connection)
+        upload_row('oura.sleep', row, client)
     for row in activity_data:
-        upload_row('oura_activity', row, connection)
+        upload_row('oura.activity', row, client)
     for row in readiness_data:
-        upload_row('oura_readiness', row, connection)
-
-    connection.commit()
+        upload_row('oura.readiness', row, client)
 
     
 if __name__ == "__main__":
