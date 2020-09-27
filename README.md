@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ### Set up the data warehouse
 
-The included file `setup_tables.sql` contains SQL commands for creating database tables that can store Oura data. Note that it uses some features specific to PostgreSQL.
+The included file `setup_tables.sql` contains SQL commands for creating database tables that can store Oura data. Note that it uses some features specific to Google BigQuery.
 
 ### Create a launch script
 
