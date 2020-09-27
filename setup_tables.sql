@@ -93,6 +93,7 @@ CREATE TABLE oura_readiness (
 	score_resting_hr	SMALLINT,
 	score_sleep_balance	SMALLINT,
 	score_temperature	SMALLINT,
+	score_hrv_balance       SMALLINT,
 	summary_date		DATE,
 	score			SMALLINT
 );
