@@ -1,5 +1,4 @@
 CREATE TABLE oura.sleep (
-	-- According to the docs, each sleep event is uniquely identified by period ID per summary date.
 	awake				INT64,
 	bedtime_end			TIMESTAMP,
 	bedtime_end_delta		INT64,
@@ -9,10 +8,10 @@ CREATE TABLE oura.sleep (
 	deep				INT64,
 	duration			INT64,
 	efficiency			INT64,
-	hr_5min				INT64,
+	hr_5min				ARRAY<INT64>,
 	hr_average			FLOAT64,
 	hr_lowest			INT64,
-	hypnogram_5min			STRING,
+	hypnogram_5min			ARRAY<STRING>,
 	is_longest			BOOL,
 	light				INT64,
 	midpoint_at_delta		INT64,
@@ -22,7 +21,7 @@ CREATE TABLE oura.sleep (
 	rem				INT64,
 	restless			INT64,
 	rmssd				INT64,
-	rmssd_5min			INT64,
+	rmssd_5min			ARRAY<INT64>,
 	score				INT64,
 	score_alignment			INT64,
 	score_deep			INT64,
@@ -58,8 +57,8 @@ CREATE TABLE oura.activity (
 	steps				INT64,
 	timezone			INT64,
 	average_met			FLOAT64,
-	class_5min			INT64,
-	met_1min			FLOAT64,
+	class_5min			ARRAY<INT64>,
+	met_1min			ARRAY<FLOAT64>,
 	met_min_high			INT64,
 	met_min_low			INT64,
 	met_min_medium			INT64,
@@ -71,16 +70,14 @@ CREATE TABLE oura.activity (
 	score_training_frequency	INT64,
 	score_training_volume		INT64,
 	target_calories			INT64,
-	target_km			INT64,
-	target_miles			INT64,
+	target_km			FLOAT64,
+	target_miles			FLOAT64,
 	to_target_km			FLOAT64,
 	to_target_miles			FLOAT64,
 	total				INT64
 );
 
 CREATE TABLE oura.readiness (
-	-- There is one readiness row per sleep event.
-
 	period_id		INT64,
 	score_activity_balance	INT64,
 	score_previous_day	INT64,
