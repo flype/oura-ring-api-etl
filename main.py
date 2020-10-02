@@ -14,6 +14,9 @@ from transform import transform_activity_data
 from transform import transform_readiness_data
 from load import upload_row
 
+def insert_in_bq(table_name, row, client):
+    print('{} => {}'.format(table_name, row))
+    upload_row(table_name, row, client)
 
 def main():
     """Perform ETL on Oura Ring data."""
@@ -25,13 +28,20 @@ def main():
 
     client = bigquery.Client()
 
-    for row in sleep_data:
-        upload_row('oura.sleep', row, client)
-    for row in activity_data:
-        upload_row('oura.activity', row, client)
-    for row in readiness_data:
-        upload_row('oura.readiness', row, client)
+    print('loading data into bigquery')
 
-    
+    for row in sleep_data:
+        insert_in_bq('oura.sleep', row, client)
+    for row in activity_data:
+        insert_in_bq('oura.activity', row, client)
+    for row in readiness_data:
+        insert_in_bq('oura.readiness', row, client)
+
+
+def oura_etl(event, context):
+    print('Event ID: {}'.format(context.event_id))
+    print('Event type: {}'.format(context.event_type))
+    main()
+
 if __name__ == "__main__":
     main()
